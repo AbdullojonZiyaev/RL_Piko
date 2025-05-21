@@ -21,7 +21,7 @@ class Level:
         rects = []
         for y, row in enumerate(self.level_map):
             for x, tile in enumerate(row):
-                if tile == "1" or tile == "D":
+                if tile == "1":
                     rect = pygame.Rect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE)
                     rects.append(rect)
         return rects

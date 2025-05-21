@@ -30,6 +30,7 @@ class Game:
         self.screen.blit(time_text, (10, 40))
 
     def run(self):
+        last_print_time = 0
         while True:
             self.screen.fill(WHITE)
 
@@ -49,6 +50,12 @@ class Game:
                 self.player.deaths += 1
                 print(f"💀 Player died! Total deaths: {self.player.deaths}")
                 self.player.reset_position()
+
+            # Print debug info once per second
+            current_time = time.time()
+            if current_time - last_print_time >= 1.0:
+                last_print_time = current_time
+                print(f"Door rects: {self.level.door_rects} ::: Player rect: {self.player.rect}")
 
             # Check if player reached door
             if any(self.player.rect.colliderect(door_rect) for door_rect in self.level.door_rects):
