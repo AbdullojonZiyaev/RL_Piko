@@ -7,6 +7,7 @@ class Player:
         self.vel_y = 0
         self.on_ground = False
         self.deaths = 0
+        self.move_x = 0  # ✅ Add this line
 
     def handle_input(self):
         keys = pygame.key.get_pressed()
@@ -19,10 +20,10 @@ class Player:
         if keys[pygame.K_SPACE] and self.on_ground:
             self.vel_y = -JUMP_FORCE
 
-    def apply_gravity(self):
-        self.vel_y += GRAVITY
-        if self.vel_y > TERMINAL_VELOCITY:
-            self.vel_y = TERMINAL_VELOCITY
+    def apply_gravity(self, gravity, terminal_velocity):
+        self.vel_y += gravity
+        if self.vel_y > terminal_velocity:
+            self.vel_y = terminal_velocity
 
     def handle_horizontal_collisions(self, collidables):
         self.rect.x += self.move_x
@@ -50,9 +51,10 @@ class Player:
         self.rect.x = 100
         self.rect.y = 100
         self.vel_y = 0
+        self.move_x = 0  # ✅ Add this line
 
     def update(self, collidables):
-        self.handle_input()
+        #self.handle_input()
         self.handle_horizontal_collisions(collidables)
         self.apply_gravity()
         self.handle_vertical_collisions(collidables)
